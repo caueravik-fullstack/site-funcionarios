@@ -1,6 +1,5 @@
 import pool from "@/lib/db";
 
-// UPDATE
 export async function PUT(req, context) {
 
   const { id } =
@@ -43,7 +42,6 @@ export async function PUT(req, context) {
 
 
 
-// DELETE
 export async function DELETE(req, context) {
 
   const { id } =

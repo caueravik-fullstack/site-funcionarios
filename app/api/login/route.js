@@ -9,7 +9,7 @@ export async function POST(req) {
 
     // Buscar usuário
     const result = await pool.query(
-      "SELECT * FROM usuarios WHERE email = $1",
+      "SELECT * FROM funcionarios WHERE email = $1",
       [body.email]
     );
 

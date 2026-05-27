@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/sections/Header";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", senha: "" });
+  const router = useRouter();
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,7 +25,7 @@ export default function Login() {
 
     if (response.ok) {
       localStorage.setItem("token", data.token);
-      alert("Login realizado!");
+      router.push("/dashboard");
     } else {
       alert(data.error);
     }

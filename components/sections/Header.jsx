@@ -1,7 +1,5 @@
 "use client";
-import Container from "../UI/Container";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -50,6 +48,15 @@ export default function Header() {
                         className={`block px-4 py-2 transition ${linkAtivo === "contato" ? "text-blue-900 font-bold bg-blue-50" : "text-gray-700 hover:bg-blue-50 hover:text-blue-900"}`}>
                         Contato
                       </a>
+                      <hr className="my-1 border-gray-100" />
+                      <Link href="/login" onClick={() => setMenuAberto(false)}
+                        className="block px-4 py-2 transition text-gray-700 hover:bg-blue-50 hover:text-blue-900">
+                        Login
+                      </Link>
+                      <Link href="/cadastro" onClick={() => setMenuAberto(false)}
+                        className="block px-4 py-2 transition text-gray-700 hover:bg-blue-50 hover:text-blue-900">
+                        Cadastre-se
+                      </Link>
                     </>
                   ) : (
                     <>
@@ -76,8 +83,8 @@ export default function Header() {
               )}
             </div>
 
-            <Link href="/cadastro" className="bg-blue-900 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition font-semibold">
-              Cadastre-se
+            <Link href="/login" className="bg-blue-900 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition font-semibold">
+              Login
             </Link>
 
           </nav>

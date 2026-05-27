@@ -58,7 +58,6 @@
 
   }
 
-  // READ
   export async function GET() {
 
     const result = await pool.query(

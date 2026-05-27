@@ -47,7 +47,7 @@ export default function Hero() {
         </div>
       </Container>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-blue-300 text-2xl">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-blue-300 text-2xl">
         ↓
       </div>
     </section>

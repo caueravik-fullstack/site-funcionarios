@@ -1,6 +1,19 @@
+"use client";
+import { useEffect } from "react";
+import { useState } from "react";
 import Container from "../UI/Container";
-
 export default function About() {
+  const [stats, setStats] = useState({ funcionarios: 0 });
+
+    useEffect(() => {
+    async function carregarStats() {
+      const response = await fetch("/api/stats");
+      const data = await response.json();
+      setStats(data);
+    }
+    carregarStats();
+  }, []);
+
   return (
     <section id="sobre" className="py-24 bg-white">
       <Container>
@@ -32,7 +45,7 @@ export default function About() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-blue-50 rounded-2xl p-6 text-center">
-                <p className="text-4xl font-extrabold text-blue-900 mb-2">+100</p>
+                <p className="text-4xl font-extrabold text-blue-900 mb-2">{stats.funcionarios}</p>
                 <p className="text-gray-500 text-sm">Funcionários Cadastrados</p>
               </div>
               <div className="bg-blue-50 rounded-2xl p-6 text-center">
