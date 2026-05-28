@@ -8,7 +8,7 @@ export default function Mensagens() {
 async function carregarMensagens() {
   const response = await fetch("/api/mensagens");
   const data = await response.json();
-  console.log(data); // ver o que vem
+  console.log(data);
   setMensagens(Array.isArray(data) ? data : []);
 }
 
