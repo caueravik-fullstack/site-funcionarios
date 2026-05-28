@@ -23,7 +23,7 @@ export default function Hero() {
 
           <h1 className="text-5xl font-extrabold mb-6 leading-tight tracking-tight">
             Gerencie sua equipe{" "}
-            <span className="text-blue-300">com simplicidade</span>
+            <span className="text-blue-500">com simplicidade</span>
           </h1>
 
           <p className="mb-10 text-lg text-blue-200 leading-relaxed">

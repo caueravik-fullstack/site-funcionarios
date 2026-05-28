@@ -12,7 +12,7 @@ export default function Footer() {
             <p className="text-blue-300 text-sm leading-relaxed">
               Sistema de gestão de funcionários simples, rápido e eficiente.
             </p>
-            <p className="text-blue-400 text-sm mt-3">📍 Limoeiro do Norte - CE</p>
+            <p className="text-blue-400 text-sm mt-3"> Limoeiro do Norte - CE</p>
           </div>
 
           <div>
@@ -33,8 +33,8 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4 text-white">Contato</h3>
             <div className="flex flex-col gap-3 text-blue-300 text-sm">
-              <p>📞 (88) 9900-4321</p>
-              <p>📧 wsync@yahoo.com</p>
+              <p> (88) 9900-4321</p>
+              <p> wsync@yahoo.com</p>
             </div>
 
 
