@@ -54,15 +54,7 @@ export default function Cadastro()
               onChange={handleChange}
               className="w-full border border-gray-300 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-900"
             />
-            <input
-              required
-              type="text"
-              name="cargo"
-              placeholder="Cargo"
-              value={form.cargo}
-              onChange={handleChange}
-              className="w-full border border-gray-300 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-900"
-            />
+
             <input
               required
               type="email"
@@ -90,8 +82,27 @@ export default function Cadastro()
               onChange={handleChange}
               className="w-full border border-gray-300 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-900"
             />
+
+<div>
+  <label className="block mb-2 text-gray-700 font-medium">
+    Cadastrar como
+  </label>
+
+  <select
+    required
+    name="tipoUsuario"
+    value={form.tipoUsuario}
+    onChange={handleChange}
+    className="w-full border border-gray-300 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-900 bg-white"
+  >
+    <option value="atleta">Atleta</option>
+    <option value="tecnico">Técnico</option>
+    <option value="administrador">Administrador</option>
+  </select>
+</div>
             <button className="bg-blue-900 text-white w-full py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
               Cadastrar
+
             </button>
           </form>
 

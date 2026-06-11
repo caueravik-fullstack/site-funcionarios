@@ -37,33 +37,21 @@ export default function Login() {
       <div className="min-h-screen flex items-center justify-center pt-24">
         <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
 
-          <h1 className="text-2xl font-bold mb-6 text-center text-blue-900">
-            Entrar na conta
+          <h1 className="text-4xl font-bold mb-6 text-center text-blue-900">
+            Entrar como:
           </h1>
+        <div className="flex">
+          <div className="bg-white 4 rounded-xl shadow-lg w-full max-w-md text-2xl text-white text-center">Atleta</div>
+            <div className="bg-white 4 rounded-xl shadow-lg w-full max-w-md text-2xl text-white text-center">Tecnico</div>
+          <div className="bg-white 4  rounded-xl shadow-lg w-full max-w-md text-2xl text-white text-center">Administrador</div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              required
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full border border-gray-300 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-900"
-            />
-            <input
-              required
-              type="password"
-              name="senha"
-              placeholder="Senha"
-              value={form.senha}
-              onChange={handleChange}
-              className="w-full border border-gray-300 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-900"
-            />
-            <button className="bg-blue-900 text-white w-full py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
+          </div>
+
+                      <button className="bg-blue-900 text-white w-full py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
               Entrar
             </button>
-          </form>
+            
+
 
           <p className="text-center text-gray-500 text-sm mt-4">
             Não tem conta?{" "}
