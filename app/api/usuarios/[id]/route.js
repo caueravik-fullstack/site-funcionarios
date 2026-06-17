@@ -1,62 +1,138 @@
+
 import pool from "@/lib/db";
+import { temPermissao } from "@/lib/auth";
+
+function obterTabela(funcao) {
+  switch (funcao) {
+    case "atleta":
+      return "atleta";
+
+    case "tecnico":
+      return "tecnico";
+
+    case "administrador":
+      return "administrador";
+
+    default:
+      return null;
+  }
+}
 
 export async function PUT(req, context) {
+  try {
+    if (!temPermissao(req, "administrador")) {
+      return Response.json(
+        { error: "Sem permissão" },
+        { status: 403 }
+      );
+    }
 
-  const { id } =
-    await context.params;
+    const { id } = context.params;
 
-  const body =
-    await req.json();
-
-  const {
-    nome,
-    cargo,
-    email,
-    telefone,
-  } = body;
-
-  await pool.query(
-    `
-    UPDATE funcionarios
-    SET nome=$1,
-        cargo=$2
-        email=$3,
-        telefone=$4
-    WHERE id=$5
-    `,
-    [
+    const {
       nome,
-      cargo,
       email,
-      telefone,
-      Number(id),
-    ]
-  );
+      funcao
+    } = await req.json();
 
-  return Response.json({
-    ok: true,
-  });
+    const tabela =
+      obterTabela(funcao);
 
+    if (!tabela) {
+      return Response.json(
+        {
+          error: "Função inválida"
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
+    const result =
+      await pool.query(
+        `
+        UPDATE ${tabela}
+        SET
+          nome = $1,
+          email = $2
+        WHERE id = $3
+        RETURNING *
+        `,
+        [
+          nome,
+          email,
+          Number(id)
+        ]
+      );
+
+    return Response.json(
+      result.rows[0]
+    );
+  } catch (error) {
+    console.log(error);
+
+    return Response.json(
+      {
+        error: "Erro ao atualizar"
+      },
+      {
+        status: 500
+      }
+    );
+  }
 }
-
-
-
 
 export async function DELETE(req, context) {
+  try {
+    if (!temPermissao(req, "administrador")) {
+      return Response.json(
+        { error: "Sem permissão" },
+        { status: 403 }
+      );
+    }
 
-  const { id } =
-    await context.params;
+    const { id } = context.params;
 
-  await pool.query(
-    `
-    DELETE FROM funcionarios
-    WHERE id=$1
-    `,
-    [Number(id)]
-  );
+    const { funcao } =
+      await req.json();
 
-  return Response.json({
-    ok: true,
-  });
+    const tabela =
+      obterTabela(funcao);
 
+    if (!tabela) {
+      return Response.json(
+        {
+          error: "Função inválida"
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
+    await pool.query(
+      `
+      DELETE FROM ${tabela}
+      WHERE id = $1
+      `,
+      [Number(id)]
+    );
+
+    return Response.json({
+      ok: true
+    });
+  } catch (error) {
+    console.log(error);
+
+    return Response.json(
+      {
+        error: "Erro ao excluir"
+      },
+      {
+        status: 500
+      }
+    );
+  }
 }
+

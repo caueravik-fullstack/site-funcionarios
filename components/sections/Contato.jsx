@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import Container from "../UI/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPhone, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faFlickr, faInstagram, faLinkedin, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 export default function Contato() {
   const [form, setForm] = useState({ nome: "", email: "", mensagem: "" });
+  const [enviando, setEnviando] = useState(false);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,6 +14,7 @@ export default function Contato() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setEnviando(true);
 
     const response = await fetch("/api/mensagens", {
       method: "POST",
@@ -21,94 +22,104 @@ export default function Contato() {
       body: JSON.stringify(form),
     });
 
+    setEnviando(false);
+
     if (response.ok) {
       alert("Mensagem enviada com sucesso!");
-      setForm({ nome: "",
-                email: "",
-                mensagem: "" });
+      setForm({ nome: "", email: "", mensagem: "" });
     } else {
       alert("Erro ao enviar mensagem.");
     }
   }
 
+  const canais = [
+    { icon: faEnvelope, label: "Email", valor: "contato@cbf.com.br" },
+    { icon: faPhone, label: "Telefone", valor: "(21) 3398-3000" },
+    { icon: faLocationDot, label: "Sede", valor: "Rio de Janeiro, RJ" },
+  ];
+
+  const redes = [
+    { icon: faFacebook, href: "https://www.facebook.com/CBF", label: "Facebook" },
+    { icon: faInstagram, href: "https://instagram.com/brasil", label: "Instagram" },
+    { icon: faXTwitter, href: "https://twitter.com/CBF_Futebol", label: "X" },
+    { icon: faYoutube, href: "https://www.youtube.com/user/CBFSelecao?sub_confirmation=1", label: "YouTube" },
+    { icon: faLinkedin, href: "https://www.linkedin.com/company/cbf-futebol", label: "LinkedIn" },
+    { icon: faFlickr, href: "https://www.flickr.com/photos/cbf_futebol", label: "Flickr" },
+  ];
+
   return (
-    <section id="contato" className="py-24 bg-blue-950 text-white">
-      <Container>
-        <div className="max-w-4xl mx-auto">
-
-          <div className="text-center mb-14">
-            <span className="inline-block bg-blue-800 text-blue-200 text-sm font-medium px-4 py-1 rounded-full mb-4">
-              Fale Conosco
-            </span>
-            <h2 className="text-4xl font-extrabold mb-4">Entre em Contato</h2>
-            <p className="text-blue-300">Estamos prontos para te atender.</p>
-          </div>
-
-          {/* Cards de contato */}
-          <div className="grid grid-cols-3 gap-6 mb-14">
-            <div className="bg-blue-900 rounded-2xl p-6 text-center hover:bg-blue-800 transition">
-              <div className="mb-4 flex justify-center">
-                <FontAwesomeIcon icon={faEnvelope} className="w-8 h-8" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Email</h3>
-              <p className="text-blue-300 text-sm">wsync@yahoo.com</p>
-            </div>
-
-            <div className="bg-blue-900 rounded-2xl p-6 text-center hover:bg-blue-800 transition">
-              <div className="mb-4 flex justify-center">
-                <FontAwesomeIcon icon={faPhone} className="w-8 h-8" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Telefone</h3>
-              <p className="text-blue-300 text-sm">(88) 9900-4321</p>
-            </div>
-
-            <div className="bg-blue-900 rounded-2xl p-6 text-center hover:bg-blue-800 transition">
-              <div className="mb-4 flex justify-center">
-                <FontAwesomeIcon icon={faInstagram} className="w-8 h-8" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Instagram</h3>
-              <p className="text-blue-300 text-sm">@WorkSync-ofc</p>
-            </div>
-          </div>
-
-          <div className="bg-blue-900 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-6 text-center">Fale Conosco</h3>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <input
-                required
-                type="text"
-                name="nome"
-                placeholder="Seu nome"
-                value={form.nome}
-                onChange={handleChange}
-                className="w-full bg-blue-800 border border-blue-700 p-3 rounded-lg text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <input
-                required
-                type="email"
-                name="email"
-                placeholder="Seu email"
-                value={form.email}
-                onChange={handleChange}
-                className="w-full bg-blue-800 border border-blue-700 p-3 rounded-lg text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <textarea
-                required
-                name="mensagem"
-                placeholder="Sua mensagem"
-                value={form.mensagem}
-                onChange={handleChange}
-                rows={4}
-                className="w-full bg-blue-800 border border-blue-700 p-3 rounded-lg text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-              />
-              <button className="bg-white text-blue-900 font-bold py-3 rounded-lg hover:bg-blue-100 transition">
-                Enviar Mensagem
-              </button>
-            </form>
-          </div>
-
+    <section id="contato" className="bg-[#1a1a2e] py-24">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="mb-14 text-center">
+          <span className="inline-block rounded-full bg-yellow-400/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-yellow-400">
+            Fale conosco
+          </span>
+          <h2 className="mt-5 text-4xl font-extrabold text-white sm:text-5xl">
+            Entre em contato
+          </h2>
+          <p className="mt-3 text-white/50">
+            Dúvidas, sugestões ou parcerias — estamos prontos para te atender.
+          </p>
         </div>
-      </Container>
+
+
+
+        {/* Formulário — card branco */}
+        <div className="rounded-2xl bg-white p-8 shadow-sm">
+          <h3 className="mb-6 text-center text-xl font-bold text-[#1a1a2e]">
+            Envie sua mensagem
+          </h3>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <input
+              required
+              type="text"
+              name="nome"
+              placeholder="Seu nome"
+              value={form.nome}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-[#1a1a2e] placeholder-gray-400 outline-none transition focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30"
+            />
+            <input
+              required
+              type="email"
+              name="email"
+              placeholder="Seu email"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-[#1a1a2e] placeholder-gray-400 outline-none transition focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30"
+            />
+            <textarea
+              required
+              name="mensagem"
+              placeholder="Sua mensagem"
+              value={form.mensagem}
+              onChange={handleChange}
+              rows={4}
+              className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 p-3 text-[#1a1a2e] placeholder-gray-400 outline-none transition focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30"
+            />
+            <button
+              disabled={enviando}
+              className="rounded-full bg-yellow-400 py-3 font-bold text-[#1a1a2e] transition hover:bg-yellow-300 disabled:opacity-50"
+            >
+              {enviando ? "Enviando..." : "Enviar Mensagem"}
+            </button>
+          </form>
+        </div>
+
+        {/* Redes sociais */}
+        <div className="mt-8 flex justify-center gap-3">
+          {redes.map((r) => (
+            <a
+              key={r.label}
+              href={r.href}
+              aria-label={r.label}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/70 transition hover:bg-yellow-400 hover:text-[#1a1a2e]"
+            >
+              <FontAwesomeIcon icon={r.icon} className="h-4 w-4" />
+            </a>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

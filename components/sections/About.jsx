@@ -1,11 +1,10 @@
 "use client";
-import { useEffect } from "react";
-import { useState } from "react";
-import Container from "../UI/Container";
-export default function About() {
-  const [stats, setStats] = useState({ funcionarios: 0 });
+import { useEffect, useState } from "react";
 
-    useEffect(() => {
+export default function About() {
+  const [stats, setStats] = useState({ atletas: 0, tecnicos: 0 });
+
+  useEffect(() => {
     async function carregarStats() {
       const response = await fetch("/api/stats");
       const data = await response.json();
@@ -14,58 +13,84 @@ export default function About() {
     carregarStats();
   }, []);
 
+  const patrocinadores = ["NIKE", "VOLKSWAGEN", "SADIA", "AMAZON", "CAIXA", "ITAÚ"];
+
   return (
-    <section id="sobre" className="py-24 bg-white">
-      <Container>
-        <div className="max-w-5xl mx-auto">
-
-          <div className="text-center mb-14">
-            <span className="inline-block bg-blue-100 text-blue-900 text-sm font-medium px-4 py-1 rounded-full mb-4">
-              Quem Somos
+    <section id="sobre" className="bg-[#1a1a2e] py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid items-center gap-16 lg:grid-cols-2">
+          {/* Esquerda — texto */}
+          <div>
+            <span className="inline-block rounded-full bg-yellow-400/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-yellow-400">
+              Quem somos
             </span>
-            <h2 className="text-4xl font-extrabold text-blue-900 mb-4">
-              Sobre a Empresa
+
+            <h2 className="mt-5 text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+              O coração do <br />
+              <span className="text-yellow-400">futebol brasileiro</span>
             </h2>
-            <div className="w-16 h-1 bg-blue-900 rounded mx-auto"></div>
+
+            <p className="mt-6 text-base leading-relaxed text-white/60">
+              A Confederação Brasileira de Futebol é o órgão máximo do futebol no Brasil,
+              responsável por organizar, desenvolver e promover o esporte em todo o território nacional.
+            </p>
+
+            <p className="mt-4 text-base leading-relaxed text-white/60">
+              Este sistema centraliza a gestão dos atletas e da comissão técnica da Seleção Brasileira,
+              garantindo controle e transparência nas operações.
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-16 items-center">
-
-            <div>
-              <p className="text-gray-600 leading-relaxed text-lg mb-6">
-                Somos uma empresa dedicada à formação e desenvolvimento de profissionais,
-                conectando talentos às melhores oportunidades do mercado.
+          {/* Direita — stat cards brancos, mesmo padrão do dashboard */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-2xl bg-white p-6 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                Atletas
               </p>
-              <p className="text-gray-500 leading-relaxed">
-                Nosso sistema foi criado para simplificar a gestão de equipes,
-                permitindo cadastrar, organizar e acompanhar funcionários de forma
-                rápida e eficiente.
+              <p className="mt-2 text-4xl font-extrabold text-[#1a1a2e]">
+                {stats.atletas}
               </p>
+              <p className="mt-1 text-sm text-gray-500">na Seleção</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-blue-50 rounded-2xl p-6 text-center">
-                <p className="text-4xl font-extrabold text-blue-900 mb-2">{stats.funcionarios}</p>
-                <p className="text-gray-500 text-sm">Funcionários Cadastrados</p>
-              </div>
-              <div className="bg-blue-50 rounded-2xl p-6 text-center">
-                <p className="text-4xl font-extrabold text-blue-900 mb-2">+10</p>
-                <p className="text-gray-500 text-sm">Anos de Experiência</p>
-              </div>
-              <div className="bg-blue-50 rounded-2xl p-6 text-center">
-                <p className="text-4xl font-extrabold text-blue-900 mb-2">+50</p>
-                <p className="text-gray-500 text-sm">Projetos Realizados</p>
-              </div>
-              <div className="bg-blue-900 rounded-2xl p-6 text-center">
-                <p className="text-4xl font-extrabold text-white mb-2">100%</p>
-                <p className="text-blue-200 text-sm">Satisfação dos Clientes</p>
-              </div>
+            <div className="rounded-2xl bg-white p-6 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                Técnicos
+              </p>
+              <p className="mt-2 text-4xl font-extrabold text-[#1a1a2e]">
+                {stats.tecnicos}
+              </p>
+              <p className="mt-1 text-sm text-gray-500">registrados</p>
             </div>
 
+            <div className="col-span-2 rounded-2xl bg-yellow-400 p-6">
+              <p className="text-sm font-bold uppercase tracking-wider text-[#1a1a2e]/70">
+                Gestão centralizada
+              </p>
+              <p className="mt-1 text-base font-semibold text-[#1a1a2e]">
+                Cadastro, auditoria e acompanhamento em um só lugar.
+              </p>
+            </div>
           </div>
-
         </div>
-      </Container>
+
+        {/* Faixa de patrocinadores */}
+        <div className="mt-20 border-t border-white/10 pt-10">
+          <p className="mb-6 text-center text-xs font-semibold uppercase tracking-wider text-white/40">
+            Patrocinadores oficiais
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            {patrocinadores.map((nome) => (
+              <span
+                key={nome}
+                className="text-lg font-extrabold tracking-tight text-white/40 transition hover:text-white/80"
+              >
+                {nome}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
-}
+} 

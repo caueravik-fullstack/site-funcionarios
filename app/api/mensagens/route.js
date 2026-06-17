@@ -27,4 +27,4 @@ export async function POST(req) {
     console.error(error);
     return NextResponse.json({ error: "Erro ao enviar mensagem" }, { status: 500 });
   }
-}
+} 

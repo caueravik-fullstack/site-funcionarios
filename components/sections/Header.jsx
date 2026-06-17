@@ -3,53 +3,67 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
+
 
 export default function Header() {
   const pathname = usePathname();
   const [menuAberto, setMenuAberto] = useState(false);
 
-  const cadastro = [
-    { nome: "Cadastrar", href: "/cadastro" },
-  ];
-
   return (
-    <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
-      <div className="max-w-8xl mx-auto px-8">
-        <div className="flex justify-between items-center py-4">
+    <header className="fixed top-0 left-0 w-full z-50">
+      <div className="bg-green-600 h-1 w-full" />
 
-          <Link href="/" className="flex items-center gap-3">
-            <h1 className="font-bold text-blue-900 text-lg">
-              Time de futebol
-            </h1>
-          </Link>
+      <div className="bg-[#1a1a2e] border-b border-yellow-400/20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex justify-between items-center py-3">
 
-          <nav className="flex gap-4 font-medium items-center">
 
-                       <Link
-              href="/cadastro"
-              className={`px-5 py-2 rounded-lg transition font-semibold ${
-                pathname === "/cadastro"
-                  ? "bg-blue-800 text-white"
-                  : "bg-gray-400 text-white hover:bg-gray-400"
-              }`}
-            >
-              Cadastrar-se
+            <Link href="/" className="flex items-center gap-3 group">
+              <Image
+                src="/logobrasil.png"
+                alt="CBF Logo"
+                width={75}
+                height={75}
+                className="group-hover:scale-105 transition"
+              />
+              <div>
+                <p className="text-yellow-400 font-black text-lg leading-tight tracking-wide">
+                  SELEÇÃO BRASILEIRA
+                </p>
+                <p className="text-white/70 text-xs tracking-widest uppercase">
+                  Confederação Brasileira de Futebol
+                </p>
+              </div>
             </Link>
 
-            <Link
-              href="/login"
-              className={`px-5 py-2 rounded-lg transition font-semibold ${
-                pathname === "/login"
-                  ? "bg-blue-800 text-white"
-                  : "bg-blue-900 text-white hover:bg-blue-800"
-              }`}
-            >
-              Login
-            </Link>
+            <nav className="flex gap-3 items-center">
+              <Link
+                href="/cadastro"
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all border ${pathname === "/cadastro"
+                    ? "bg-yellow-400 text-[#1a1a2e] border-yellow-400"
+                    : "bg-transparent text-white border-white/30 hover:border-yellow-400 hover:text-yellow-400"
+                  }`}
+              >
+                Cadastrar-se
+              </Link>
 
-          </nav>
+              <Link
+                href="/login"
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${pathname === "/login"
+                    ? "bg-yellow-400 text-[#1a1a2e]"
+                    : "bg-yellow-400 text-[#1a1a2e] hover:bg-yellow-300"
+                  }`}
+              >
+                Login
+              </Link>
+            </nav>
+
+          </div>
         </div>
       </div>
+
+      <div className="bg-yellow-400 h-[2px] w-full" />
     </header>
   );
 }
